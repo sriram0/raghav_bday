@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            h1{
+                color:rgb(255, 0, 0);
+                font-size: 3em;
+            }
+            body{
+                background-color: lightblue;
+                text-align:center;
+            }
+            h3{
+                color:rgb(129, 183, 48)
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Happy Birthday Raghav!!!!!!!!!!!!!</h1>
+        <h3>Click below</h3>
+        <main>
+        </main><br><br>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function setup(){
+            var cnv=createCanvas(500, 500)
+            cnv.mouseClicked(function(){balls.push([mouseX, mouseY, Math.random()*360, 5])})
+        }
+        var balls=[[200, 200, 300, 5]]
+        function draw(){
+            background("black")
+            for(var i=0;i<balls.length;i++){
+                ball=balls[i]
+                strokeWeight(15)
+                stroke(ball[3]*70, 100+ball[3]*10, 0)
+                point(ball[0], ball[1])
+                ball[0]+=Math.cos(ball[2]*Math.PI/180)*ball[3]
+                ball[1]-=Math.sin(ball[2]*Math.PI/180)*ball[3]
+                if(ball[1]>500){
+                    if(ball[2]>270){
+                        x=ball[2]-270
+                        ball[2]=x
+                    }else if(ball[2]<270){
+                        x=270-ball[2]
+                        ball[2]+=2*x
+                    }else{
+                        ball[2]=90
+                    }
+                    ball[1]=490
+                    ball[3]*=0.75
+                }
+                if(ball[1]<0){
+                    if(ball[2]>90){
+                        x=ball[2]-90
+                        ball[2]=270+x
+                    }else if(ball[2]<90){
+                        x=90-ball[2]
+                        ball[2]=270-x
+                    }else{
+                        ball[2]=270
+                    }
+                    ball[1]=10
+                    ball[3]*=0.5
+                }
+                if(ball[2]>359){
+                    ball[2]-=360
+                }
+                if(ball[2]<0){
+                    ball[2]+=360
+                }
+                if(ball[2]>270 || ball[2]<90){
+                    ball[2]--;
+                }else if(ball[2]<270 && ball[2]<90){
+                    ball[2]++
+                }else if(ball[2]==90){
+                    ball[3]-=0.01;
+                }else{
+                    ball[3]+=0.01
+                }
+                if(ball[3]<0){
+                    ball[3]-=ball[3]*2
+                    ball[2]+=180
+                }
+            }
+        }
+    </script>
+</html>
